@@ -39,6 +39,40 @@ const RootQueryType = new GraphQLObjectType({
       description: "List of all Grades",
       resolve: () => grades,
     },
+
+    student: {
+      type: studentType,
+      description: "Student by student_id",
+      args: {
+        student_id: { type: GraphQLInt },
+      },
+      resolve: (parent, args) =>
+        students.find((student) => student.id == args.student_id),
+    },
+
+    course: {
+      type: courseType,
+      description:"Course by course_id",
+      args:{
+        course_id:{type:GraphQLInt}
+      },
+      resolve: (parent,args) => courses.find( (course) => course.id === args.course_id  ),
+    },
+
+    grade:{
+      type: gradeType,
+      description:"Grade by grade_id",
+      args:{
+        grade_id:{type:GraphQLInt}
+      },
+      resolve: (parent,args) => grades.find( (grade)=> grade.id === args.grade_id ),
+    },
+
+
+
+
+
+
   }),
 });
 

@@ -1,12 +1,11 @@
-[
-    {
+[{
         "id": 1,
         "name": "Juana",
         "last_name": "Molina",
         "course_id": 1
     },
     {
-        "id": 2,  
+        "id": 2,
         "name": "Jordan",
         "last_name": "Peterson",
         "course_id": 1
@@ -21,12 +20,24 @@
         "id": 4,
         "name": "Joe",
         "last_name": "Rogan",
-        "course_id": 1
+        "course_id": 2
     },
     {
         "id": 5,
         "name": "Ricardo",
         "last_name": "Mollo",
-        "course_id": 2
+        "course_id": 3
+    },
+    {
+        "id": 6,
+        "name": "Baldomero",
+        "last_name": "Ressendi",
+        "course_id": 3
+    },
+    {
+        "id": 7,
+        "name": "Michael",
+        "last_name": "Jordan",
+        "course_id": 3
     }
 ]

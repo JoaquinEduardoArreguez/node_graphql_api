@@ -5,6 +5,7 @@ const {
     GraphQLString,
   } = require("graphql");
 
+
   const courseType = new GraphQLObjectType({
     name: "Course",
     description: "Represents a course",
