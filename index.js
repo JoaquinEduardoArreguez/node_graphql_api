@@ -18,6 +18,14 @@ const courses = require("./courses.json");
 const grades = require("./grades.json");
 const students = require("./students.json");
 
+const RootQueryType= require('./queries/rootQueryType');
+
+
+
+
+
+/*
+
 const RootQueryType = new GraphQLObjectType({
   name: "Query",
   description: "Root Query",
@@ -71,6 +79,9 @@ const RootQueryType = new GraphQLObjectType({
     },
   }),
 });
+
+
+*/
 
 const RootMutationType = new GraphQLObjectType({
   name: "Mutation",
