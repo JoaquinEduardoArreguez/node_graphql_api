@@ -72,8 +72,80 @@ const RootQueryType = new GraphQLObjectType({
   }),
 });
 
+const RootMutationType = new GraphQLObjectType({
+  name: "Mutation",
+  description: "Root Mutation",
+  fields: () => ({
+    createCourse: {
+      type: courseType,
+      description: "Creates a new course",
+      args: {
+        courseName: { type: GraphQLNonNull(GraphQLString) },
+        courseDescription: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve: (parent, args) => {
+        const course = {
+          id: courses.length + 1,
+          name: args.courseName,
+          description: args.courseDescription,
+        };
+        courses.push(course);
+        return course;
+      },
+    },
+
+    createStudent:{
+      type:studentType,
+      description:"Creates a new student",
+      args: {
+        studentName:{type:GraphQLNonNull(GraphQLString)},
+        studentLastName:{type:GraphQLNonNull(GraphQLString)},
+        studentCourseId:{type:GraphQLNonNull(GraphQLInt)},
+      },
+      resolve: (parent,args)=>{
+        const student = {
+          id: students.length+1,
+          name:args.studentName,
+          last_name:args.studentLastName,
+          course_id:args.studentCourseId,
+        };
+        students.push(student);
+        return student;
+      }
+    },
+
+
+    createGrade:{
+      type:gradeType,
+      description:"Creates a new grade",
+      args: {
+        gradeCourseId:{type:GraphQLNonNull(GraphQLInt)},
+        gradeStudentId:{type:GraphQLNonNull(GraphQLInt)},
+        grade:{type:GraphQLNonNull(GraphQLInt)},
+      },
+      resolve: (parent,args)=>{
+        const grade = {
+          id: grades.length+1,
+          course_id:args.gradeCourseId,
+          student_id:args.gradeStudentId,
+          grade:args.grade
+        };
+        grades.push(grade);
+        return grade;
+      }
+    },
+
+
+
+
+
+
+  }),
+});
+
 const schema = new GraphQLSchema({
   query: RootQueryType,
+  mutation:RootMutationType
 });
 
 app.use("/graphql", expressGraphQl({ schema: schema, graphiql: true }));
