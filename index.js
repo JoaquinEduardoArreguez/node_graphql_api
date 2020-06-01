@@ -52,27 +52,23 @@ const RootQueryType = new GraphQLObjectType({
 
     course: {
       type: courseType,
-      description:"Course by course_id",
-      args:{
-        course_id:{type:GraphQLInt}
+      description: "Course by course_id",
+      args: {
+        course_id: { type: GraphQLInt },
       },
-      resolve: (parent,args) => courses.find( (course) => course.id === args.course_id  ),
+      resolve: (parent, args) =>
+        courses.find((course) => course.id === args.course_id),
     },
 
-    grade:{
+    grade: {
       type: gradeType,
-      description:"Grade by grade_id",
-      args:{
-        grade_id:{type:GraphQLInt}
+      description: "Grade by grade_id",
+      args: {
+        grade_id: { type: GraphQLInt },
       },
-      resolve: (parent,args) => grades.find( (grade)=> grade.id === args.grade_id ),
+      resolve: (parent, args) =>
+        grades.find((grade) => grade.id === args.grade_id),
     },
-
-
-
-
-
-
   }),
 });
 
