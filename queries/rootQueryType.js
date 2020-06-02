@@ -1,11 +1,4 @@
-const {
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLList,
-  GraphQLNonNull,
-  GraphQLInt,
-} = require("graphql");
+const { GraphQLObjectType, GraphQLList, GraphQLInt } = require("graphql");
 
 const studentType = require("../data_types/studentType");
 const courseType = require("../data_types/courseType");

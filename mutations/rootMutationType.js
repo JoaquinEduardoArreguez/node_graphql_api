@@ -1,5 +1,4 @@
 const {
-  GraphQLSchema,
   GraphQLObjectType,
   GraphQLString,
   GraphQLList,
@@ -15,6 +14,7 @@ const courses = require("../data/courses.json");
 const grades = require("../data/grades.json");
 const students = require("../data/students.json");
 
+// Could just use "array.filter", but instead we use lodash.
 const _ = require("lodash");
 
 const RootMutationType = new GraphQLObjectType({

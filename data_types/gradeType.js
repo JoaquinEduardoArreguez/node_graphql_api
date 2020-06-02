@@ -1,9 +1,4 @@
-const {
-  GraphQLObjectType,
-  GraphQLNonNull,
-  GraphQLInt,
-  GraphQLString,
-} = require("graphql");
+const { GraphQLObjectType, GraphQLNonNull, GraphQLInt } = require("graphql");
 
 const courseType = require("./courseType");
 const studentType = require("./studentType");
