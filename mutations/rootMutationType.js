@@ -11,9 +11,9 @@ const studentType = require("../data_types/studentType");
 const courseType = require("../data_types/courseType");
 const gradeType = require("../data_types/gradeType");
 
-const courses = require("../courses.json");
-const grades = require("../grades.json");
-const students = require("../students.json");
+const courses = require("../data/courses.json");
+const grades = require("../data/grades.json");
+const students = require("../data/students.json");
 
 const _ = require("lodash");
 
