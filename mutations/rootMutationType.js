@@ -48,14 +48,20 @@ const RootMutationType = new GraphQLObjectType({
         studentCourseId: { type: GraphQLNonNull(GraphQLInt) },
       },
       resolve: (parent, args) => {
-        const student = {
-          id: students.length + 1,
-          name: args.studentName,
-          last_name: args.studentLastName,
-          course_id: args.studentCourseId,
-        };
-        students.push(student);
-        return student;
+        if (_.some(courses, { id: args.studentCourseId })) {
+          const student = {
+            id: students.length + 1,
+            name: args.studentName,
+            last_name: args.studentLastName,
+            course_id: args.studentCourseId,
+          };
+          students.push(student);
+          return student;
+        }
+
+        throw new Error(
+          `${args.studentCourseId} is not a valid curse id. First create the course with that id.`
+        );
       },
     },
 
@@ -68,14 +74,34 @@ const RootMutationType = new GraphQLObjectType({
         grade: { type: GraphQLNonNull(GraphQLInt) },
       },
       resolve: (parent, args) => {
-        const grade = {
-          id: grades.length + 1,
-          course_id: args.gradeCourseId,
-          student_id: args.gradeStudentId,
-          grade: args.grade,
-        };
-        grades.push(grade);
-        return grade;
+        if (_.some(courses, { id: args.gradeCourseId })) {
+          if (_.some(students, { id: args.gradeStudentId })) {
+            let specificStudent = _.find(students, { id: args.gradeStudentId });
+
+            if (specificStudent.course_id === args.gradeCourseId) {
+              const grade = {
+                id: grades.length + 1,
+                course_id: args.gradeCourseId,
+                student_id: args.gradeStudentId,
+                grade: args.grade,
+              };
+              grades.push(grade);
+              return grade;
+            }
+
+            throw new Error(
+              `Student id:${args.gradeStudentId} is not signed to course id:${args.gradeCourseId}.`
+            );
+          }
+
+          throw new Error(
+            `${args.gradeStudentId} is not a valid student id. First create the student with that id.`
+          );
+        }
+
+        throw new Error(
+          `${args.gradeCourseId} is not a valid curse id. First create the course with that id.`
+        );
       },
     },
 
@@ -96,10 +122,20 @@ const RootMutationType = new GraphQLObjectType({
         course_id: { type: GraphQLNonNull(GraphQLInt) },
       },
       resolve: (parent, args) => {
-        let removedCourses = _.remove(courses, (course) => {
-          return course.id === args.course_id;
-        });
-        return removedCourses;
+        if (_.some(students, { course_id: args.course_id })) {
+          throw new Error(
+            `Course id:${args.course_id} has students signed, remove them first.`
+          );
+        } else if (_.some(grades, { course_id: args.course_id })) {
+          throw new Error(
+            `Course id:${args.course_id} has grades asociated, remove them first.`
+          );
+        } else {
+          let removedCourses = _.remove(courses, (course) => {
+            return course.id === args.course_id;
+          });
+          return removedCourses;
+        }
       },
     },
 
@@ -124,10 +160,16 @@ const RootMutationType = new GraphQLObjectType({
         student_id: { type: GraphQLNonNull(GraphQLInt) },
       },
       resolve: (parent, args) => {
-        let removedStudents = _.remove(students, (student) => {
-          return student.id === args.student_id;
-        });
-        return removedStudents;
+        if (_.some(grades, { student_id: args.student_id })) {
+          throw new Error(
+            `Student id:${args.student_id} has grades asociated, remove them first.`
+          );
+        } else {
+          let removedStudents = _.remove(students, (student) => {
+            return student.id === args.student_id;
+          });
+          return removedStudents;
+        }
       },
     },
   }),
