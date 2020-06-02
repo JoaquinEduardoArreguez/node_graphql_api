@@ -26,11 +26,11 @@ const gradeType = new GraphQLObjectType({
       },
     },
     student: {
-        type: studentType,
-        resolve: (grade) => {
-            return students.find( student => student.id === grade.student_id );
-        }
-    }
+      type: studentType,
+      resolve: (grade) => {
+        return students.find((student) => student.id === grade.student_id);
+      },
+    },
   }),
 });
 

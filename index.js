@@ -18,12 +18,12 @@ const courses = require("./courses.json");
 const grades = require("./grades.json");
 const students = require("./students.json");
 
-const RootQueryType= require('./queries/rootQueryType');
-const RootMutationType= require('./mutations/rootMutationType');
+const RootQueryType = require("./queries/rootQueryType");
+const RootMutationType = require("./mutations/rootMutationType");
 
 const schema = new GraphQLSchema({
   query: RootQueryType,
-  mutation:RootMutationType
+  mutation: RootMutationType,
 });
 
 app.use("/graphql", expressGraphQl({ schema: schema, graphiql: true }));
