@@ -22,6 +22,8 @@ const RootMutationType = new GraphQLObjectType({
   name: "Mutation",
   description: "Root Mutation",
   fields: () => ({
+
+
     createCourse: {
       type: courseType,
       description: "Creates a new course",
